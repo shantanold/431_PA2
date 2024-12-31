@@ -1,0 +1,16 @@
+/* body{
+    background: linear-gradient(90deg, hsla(40, 94%, 74%, 1) 0%, hsla(60, 92%, 72%, 1) 100%);
+} */
+button{
+    background-color: #f9f9f9;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+button:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+    background-color: red;
+}

@@ -1,13 +1,28 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
-  # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    sort_column = params[:sort_by] || session[:sort_by] || 'title'
+    
+    # Only change direction if explicitly sorting (params present)
+    if params[:sort_by].present?
+      sort_direction = params[:direction] || 'asc'
+    else
+      sort_direction = session[:direction] || 'asc'
+    end
+
+    # Persist in session
+    session[:sort_by] = sort_column
+    session[:direction] = sort_direction
+
+    @movies = Movie.sorted_by(sort_column, sort_direction)
   end
 
   # GET /movies/1 or /movies/1.json
   def show
+    @movie = Movie.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to movies_path, alert: 'Movie not found'
   end
 
   # GET /movies/new
@@ -17,6 +32,9 @@ class MoviesController < ApplicationController
 
   # GET /movies/1/edit
   def edit
+    @movie = Movie.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to movies_path, alert: 'Movie not found'
   end
 
   # POST /movies or /movies.json
@@ -45,6 +63,8 @@ class MoviesController < ApplicationController
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
     end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to movies_path, alert: 'Movie not found'
   end
 
   # DELETE /movies/1 or /movies/1.json
@@ -58,13 +78,17 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = Movie.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def movie_params
-      params.expect(movie: [ :title, :rating, :description, :release_date ])
-    end
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
+
+  def movie_params
+    params.require(:movie).permit(:title, :rating, :description, :release_date)
+  end
+
+  def toggle_direction(column)
+    return 'asc' unless params[:sort_by] == column
+    params[:direction] == 'asc' ? 'desc' : 'asc'
+  end
 end

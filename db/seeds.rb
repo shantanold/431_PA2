@@ -24,13 +24,9 @@ more_movies = [
     {:title => 'Cars 3', :rating => 'PG',
     :release_date => '31-Mar-2020'},
 ]
-duplicate_movies = Movie.group(:title).having('count(*) > 1').pluck(:title)
-duplicate_movies.each do |title|
-    duplicate_entries = Movie.where(title: title).order(:created_at).all[1..-1]
-    duplicate_entries.each(&:destroy)
+more_movies.each do |movie_hash|
+    Movie.find_or_create_by!(title: movie_hash[:title]) do |movie|
+      movie.rating = movie_hash[:rating]
+      movie.release_date = movie_hash[:release_date]
+    end
   end
-movies.each do |movie_hash|
-unless Movie.exists?(title: movie_hash[:title]) 
-    Movie.create!(movie_hash) 
-end
-end

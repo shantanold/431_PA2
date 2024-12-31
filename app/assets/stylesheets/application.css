@@ -8,3 +8,128 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+/* General table styles */
+body{
+    background: linear-gradient(90deg, hsla(239, 100%, 67%, 1) 0%, hsla(187, 100%, 89%, 1) 100%);
+
+}
+table {
+    width: 80%;
+    border-collapse: collapse;
+  }
+
+  
+  th, td {
+    padding: 8px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  th {
+    background-color: gainsboro;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  a:hover{
+    color:blueviolet
+  }
+  
+  /* Sorted column styles */
+  .sorted-asc {
+    background-color: greenyellow; /* Light green for ascending */
+    color: green; /* Dark green text */
+  }
+  
+  .sorted-desc {
+    background-color: pink; /* Light red for descending */
+    color: red; /* Dark red text */
+  }
+  
+  /* Table row hover effect */
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  .header_text{
+    
+    font-size:40px;
+    text-align: center;
+    font-style: italic;
+
+  }
+  .nav_button{
+    background-color: lavender;
+    font-size:20px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-style: bold;
+    margin: 10px;
+    padding: 10px;
+  }
+.nav_button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+.body_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+/* Form styles */
+form {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"],
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form input[type="submit"]:hover,
+form button:hover {
+    background-color: #45a049;
+}
+  
